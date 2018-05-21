@@ -1,3 +1,7 @@
+[![Build Status](https://travis-ci.org/nfer/git-config-ini.svg?branch=master)](https://travis-ci.org/nfer/git-config-ini)
+[![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+
+
 GIT config ini format parser and serializer for node.
 
 ## Usage
