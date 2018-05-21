@@ -1,56 +1,34 @@
-An ini format parser and serializer for node.
-
-Sections are treated as nested objects.  Items before the first
-heading are saved on the object directly.
+GIT config ini format parser and serializer for node.
 
 ## Usage
 
-Consider an ini-file `config.ini` that looks like this:
+Consider an git config ini-file `.git/config` that looks like this:
 
-    ; this comment is being ignored
-    scope = global
-
-    [database]
-    user = dbuser
-    password = dbpassword
-    database = use_this_database
-
-    [paths.default]
-    datadir = /var/lib/data
-    array[] = first value
-    array[] = second value
-    array[] = third value
+    [core]
+        repositoryformatversion = 0
+        filemode = true
+        bare = false
+        logallrefupdates = true
+        ignorecase = true
+        precomposeunicode = true
+    [remote "origin"]
+        url = https://github.com/nfer/git-config-ini
+        fetch = +refs/heads/*:refs/remotes/origin/*
+    [user]
+        name = Nfer Zhuang
 
 You can read, manipulate and write the ini-file like so:
 
     var fs = require('fs')
       , ini = require('ini')
 
-    var config = ini.parse(fs.readFileSync('./config.ini', 'utf-8'))
+    var config = ini.parse(fs.readFileSync('.git/config', 'utf-8'))
 
-    config.scope = 'local'
-    config.database.database = 'use_another_database'
-    config.paths.default.tmpdir = '/tmp'
-    delete config.paths.default.datadir
-    config.paths.default.array.push('fourth value')
+    config.core.filemode = false
+    config.user.name = 'nfer'
+    config.user.email = 'nfer@nferzhuang.com'
 
-    fs.writeFileSync('./config_modified.ini', ini.stringify(config, { section: 'section' }))
-
-This will result in a file called `config_modified.ini` being written
-to the filesystem with the following content:
-
-    [section]
-    scope=local
-    [section.database]
-    user=dbuser
-    password=dbpassword
-    database=use_another_database
-    [section.paths.default]
-    tmpdir=/tmp
-    array[]=first value
-    array[]=second value
-    array[]=third value
-    array[]=fourth value
+    fs.writeFileSync('.git/config', ini.stringify(config))
 
 
 ## API
@@ -63,24 +41,13 @@ Decode the ini-style formatted `inistring` into a nested object.
 
 Alias for `decode(inistring)`
 
-### encode(object, [options])
+### encode(object)
 
-Encode the object `object` into an ini-style formatted string. If the
-optional parameter `section` is given, then all top-level properties
-of the object are put into this section and the `section`-string is
-prepended to all sub-sections, see the usage example above.
+Encode the object `object` into an ini-style formatted string.
 
-The `options` object may contain the following:
+### stringify(object)
 
-* `section` A string which will be the first `section` in the encoded
-  ini data.  Defaults to none.
-
-For backwards compatibility reasons, if a `string` options is passed
-in, then it is assumed to be the `section` value.
-
-### stringify(object, [options])
-
-Alias for `encode(object, [options])`
+Alias for `encode(object)`
 
 ### safe(val)
 
