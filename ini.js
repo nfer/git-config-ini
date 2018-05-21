@@ -14,15 +14,13 @@ function encode (obj, opt) {
 
   if (typeof opt === 'string') {
     opt = {
-      section: opt,
-      whitespace: false
+      section: opt
     }
   } else {
     opt = opt || {}
-    opt.whitespace = opt.whitespace === true
   }
 
-  var separator = opt.whitespace ? ' = ' : '='
+  var separator = ' = '
 
   Object.keys(obj).forEach(function (k, _, __) {
     var val = obj[k]
@@ -45,8 +43,7 @@ function encode (obj, opt) {
     var nk = dotSplit(k).join('\\.')
     var section = (opt.section ? opt.section + '.' : '') + nk
     var child = encode(obj[k], {
-      section: section,
-      whitespace: opt.whitespace
+      section: section
     })
     if (out.length && child.length) {
       out += eol

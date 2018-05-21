@@ -74,10 +74,6 @@ The `options` object may contain the following:
 
 * `section` A string which will be the first `section` in the encoded
   ini data.  Defaults to none.
-* `whitespace` Boolean to specify whether to put whitespace around the
-  `=` character.  By default, whitespace is omitted, to be friendly to
-  some persnickety old parsers that don't tolerate it well.  But some
-  find that it's more human-readable and pretty with the whitespace.
 
 For backwards compatibility reasons, if a `string` options is passed
 in, then it is assumed to be the `section` value.

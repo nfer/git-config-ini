@@ -6,33 +6,33 @@ var i = require("../")
   , fixture = path.resolve(__dirname, "./fixtures/foo.ini")
   , data = fs.readFileSync(fixture, "utf8")
   , d
-  , expectE = 'o=p\n'
-            + 'a with spaces=b  c\n'
-            + '" xa  n          p "="\\"\\r\\nyoyoyo\\r\\r\\n"\n'
-            + '"[disturbing]"=hey you never know\n'
-            + 's=something\n'
-            + 's1=\"something\'\n'
-            + 's2=something else\n'
-            + 'zr[]=deedee\n'
-            + 'ar[]=one\n'
-            + 'ar[]=three\n'
-            + 'ar[]=this is included\n'
-            + 'br=warm\n'
-            + 'eq=\"eq=eq\"\n'
+  , expectE = 'o = p\n'
+            + 'a with spaces = b  c\n'
+            + '" xa  n          p " = "\\"\\r\\nyoyoyo\\r\\r\\n"\n'
+            + '"[disturbing]" = hey you never know\n'
+            + 's = something\n'
+            + 's1 = \"something\'\n'
+            + 's2 = something else\n'
+            + 'zr[] = deedee\n'
+            + 'ar[] = one\n'
+            + 'ar[] = three\n'
+            + 'ar[] = this is included\n'
+            + 'br = warm\n'
+            + 'eq = \"eq=eq\"\n'
             + '\n'
             + '[a]\n'
-            + 'av=a val\n'
-            + 'e={ o: p, a: '
+            + 'av = a val\n'
+            + 'e = { o: p, a: '
             + '{ av: a val, b: { c: { e: "this [value]" '
-            + '} } } }\nj="\\"{ o: \\"p\\", a: { av:'
+            + '} } } }\nj = "\\"{ o: \\"p\\", a: { av:'
             + ' \\"a val\\", b: { c: { e: \\"this [value]'
-            + '\\" } } } }\\""\n"[]"=a square?\n'
-            + 'cr[]=four\ncr[]=eight\n\n'
-            +'[a.b.c]\ne=1\n'
-            + 'j=2\n\n[x\\.y\\.z]\nx.y.z=xyz\n\n'
-            + '[x\\.y\\.z.a\\.b\\.c]\na.b.c=abc\n'
-            + 'nocomment=this\\; this is not a comment\n'
-            + 'noHashComment=this\\# this is not a comment\n'
+            + '\\" } } } }\\""\n"[]" = a square?\n'
+            + 'cr[] = four\ncr[] = eight\n\n'
+            +'[a.b.c]\ne = 1\n'
+            + 'j = 2\n\n[x\\.y\\.z]\nx.y.z = xyz\n\n'
+            + '[x\\.y\\.z.a\\.b\\.c]\na.b.c = abc\n'
+            + 'nocomment = this\\; this is not a comment\n'
+            + 'noHashComment = this\\# this is not a comment\n'
   , expectD =
     { o: 'p',
       'a with spaces': 'b  c',
@@ -62,13 +62,8 @@ var i = require("../")
       }
     }
   , expectF = '[prefix.log]\n'
-            + 'type=file\n\n'
-            + '[prefix.log.level]\n'
-            + 'label=debug\n'
-            + 'value=10\n'
-  , expectG = '[log]\n'
             + 'type = file\n\n'
-            + '[log.level]\n'
+            + '[prefix.log.level]\n'
             + 'label = debug\n'
             + 'value = 10\n'
 
@@ -95,13 +90,5 @@ test("encode with option", function (t) {
   e = i.encode(obj, {section: 'prefix'})
 
   t.equal(e, expectF)
-  t.end()
-})
-
-test("encode with whitespace", function (t) {
-  var obj = {log: { type:'file', level: {label:'debug', value:10} } }
-  e = i.encode(obj, {whitespace: true})
-
-  t.equal(e, expectG)
   t.end()
 })
