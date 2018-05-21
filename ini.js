@@ -31,7 +31,7 @@ function encode (obj, opt) {
     } else if (val && typeof val === 'object') {
       children.push(k)
     } else {
-      out += safe(k) + separator + safe(val) + eol
+      out += '\t' + safe(k) + separator + safe(val) + eol
     }
   })
 
@@ -45,9 +45,6 @@ function encode (obj, opt) {
     var child = encode(obj[k], {
       section: section
     })
-    if (out.length && child.length) {
-      out += eol
-    }
     out += child
   })
 

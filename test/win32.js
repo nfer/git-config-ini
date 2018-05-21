@@ -3,9 +3,9 @@ Object.defineProperty(process, 'platform', { value: 'win32' })
 const ini = require('../ini.js')
 
 const res = ini.encode({foo: { bar: 'baz' }})
-t.equal(res, "[foo]\r\nbar = baz\r\n")
+t.equal(res, "[foo]\r\n\tbar = baz\r\n")
 
-t.equal(ini.encode({bar: 'baz'}, 'foo'), '[foo]\r\nbar = baz\r\n')
+t.equal(ini.encode({bar: 'baz'}, 'foo'), '[foo]\r\n\tbar = baz\r\n')
 
 t.same(ini.decode('=just junk!\r\n[foo]\r\nbar\r\n'),
        { foo: { bar: true }})

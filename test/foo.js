@@ -6,33 +6,32 @@ var i = require("../")
   , fixture = path.resolve(__dirname, "./fixtures/foo.ini")
   , data = fs.readFileSync(fixture, "utf8")
   , d
-  , expectE = 'o = p\n'
-            + 'a with spaces = b  c\n'
-            + '" xa  n          p " = "\\"\\r\\nyoyoyo\\r\\r\\n"\n'
-            + '"[disturbing]" = hey you never know\n'
-            + 's = something\n'
-            + 's1 = \"something\'\n'
-            + 's2 = something else\n'
+  , expectE = '\to = p\n'
+            + '\ta with spaces = b  c\n'
+            + '\t" xa  n          p " = "\\"\\r\\nyoyoyo\\r\\r\\n"\n'
+            + '\t"[disturbing]" = hey you never know\n'
+            + '\ts = something\n'
+            + '\ts1 = \"something\'\n'
+            + '\ts2 = something else\n'
             + 'zr[] = deedee\n'
             + 'ar[] = one\n'
             + 'ar[] = three\n'
             + 'ar[] = this is included\n'
-            + 'br = warm\n'
-            + 'eq = \"eq=eq\"\n'
-            + '\n'
+            + '\tbr = warm\n'
+            + '\teq = \"eq=eq\"\n'
             + '[a]\n'
-            + 'av = a val\n'
-            + 'e = { o: p, a: '
+            + '\tav = a val\n'
+            + '\te = { o: p, a: '
             + '{ av: a val, b: { c: { e: "this [value]" '
-            + '} } } }\nj = "\\"{ o: \\"p\\", a: { av:'
+            + '} } } }\n\tj = "\\"{ o: \\"p\\", a: { av:'
             + ' \\"a val\\", b: { c: { e: \\"this [value]'
-            + '\\" } } } }\\""\n"[]" = a square?\n'
-            + 'cr[] = four\ncr[] = eight\n\n'
-            +'[a.b.c]\ne = 1\n'
-            + 'j = 2\n\n[x\\.y\\.z]\nx.y.z = xyz\n\n'
-            + '[x\\.y\\.z.a\\.b\\.c]\na.b.c = abc\n'
-            + 'nocomment = this\\; this is not a comment\n'
-            + 'noHashComment = this\\# this is not a comment\n'
+            + '\\" } } } }\\""\n\t"[]" = a square?\n'
+            + 'cr[] = four\ncr[] = eight\n'
+            +'[a.b.c]\n\te = 1\n'
+            + '\tj = 2\n[x\\.y\\.z]\n\tx.y.z = xyz\n'
+            + '[x\\.y\\.z.a\\.b\\.c]\n\ta.b.c = abc\n'
+            + '\tnocomment = this\\; this is not a comment\n'
+            + '\tnoHashComment = this\\# this is not a comment\n'
   , expectD =
     { o: 'p',
       'a with spaces': 'b  c',
@@ -62,10 +61,10 @@ var i = require("../")
       }
     }
   , expectF = '[prefix.log]\n'
-            + 'type = file\n\n'
+            + '\ttype = file\n'
             + '[prefix.log.level]\n'
-            + 'label = debug\n'
-            + 'value = 10\n'
+            + '\tlabel = debug\n'
+            + '\tvalue = 10\n'
 
 test("decode from file", function (t) {
   var d = i.decode(data)
