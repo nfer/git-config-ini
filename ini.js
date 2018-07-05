@@ -25,9 +25,15 @@ function encode (obj, opt) {
   Object.keys(obj).forEach(function (k, _, __) {
     var val = obj[k]
     if (val && Array.isArray(val)) {
-      val.forEach(function (item) {
-        out += safe(k + '[]') + separator + safe(item) + '\n'
-      })
+      if (k === 'pushurl') {
+        val.forEach(function (item) {
+          out += '\t' + safe(k) + separator + safe(item) + '\n'
+        })
+      } else {
+        val.forEach(function (item) {
+          out += safe(k + '[]') + separator + safe(item) + '\n'
+        })
+      }
     } else if (val && typeof val === 'object') {
       children.push(k)
     } else {
@@ -84,6 +90,9 @@ function decode (str) {
       case 'false':
       case 'null': value = JSON.parse(value)
     }
+
+    // Convert pushurl keys to array
+    if (key === 'pushurl') key = 'pushurl[]'
 
     // Convert keys with '[]' suffix to an array
     if (key.length > 2 && key.slice(-2) === '[]') {
