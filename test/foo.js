@@ -19,6 +19,11 @@ var i = require("../")
             + 'ar[] = this is included\n'
             + '\tbr = warm\n'
             + '\teq = \"eq=eq\"\n'
+            + '[remote "a"]\n'
+            + '\turl = 1\n'
+            + '\tpushurl = 2\n'
+            + '\tpushurl = 3\n'
+            + '\tpushurl = 4\n'
             + '[a]\n'
             + '\tav = a val\n'
             + '\te = { o: p, a: '
@@ -32,11 +37,13 @@ var i = require("../")
             + '[x\\.y\\.z.a\\.b\\.c]\n\ta.b.c = abc\n'
             + '\tnocomment = this\\; this is not a comment\n'
             + '\tnoHashComment = this\\# this is not a comment\n'
+
   , expectD =
     { o: 'p',
       'a with spaces': 'b  c',
       " xa  n          p ":'"\r\nyoyoyo\r\r\n',
       '[disturbing]': 'hey you never know',
+      'remote "a"': { url: 1, pushurl: [ 2, 3, 4 ] },
       's': 'something',
       's1' : '\"something\'',
       's2': 'something else',
