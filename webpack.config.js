@@ -6,7 +6,9 @@ module.exports = [
     },
     output: {
       filename: 'ini.min.js',
-      path: __dirname
+      path: __dirname,
+      library: 'gitConfigIni',
+      libraryTarget: 'var'
     }
   }
 ]

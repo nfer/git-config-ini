@@ -35,6 +35,21 @@ You can read, manipulate and write the ini-file like so:
     fs.writeFileSync('.git/config', ini.stringify(config))
 
 
+### Browser
+
+This script has been bundled for browser use and is available as global var `gitConfigIni`.
+
+```
+<html>
+  <body>
+    <script src="ini.min.js"></script>
+    <script>
+      console.log(gitConfigIni)
+    </script>
+  </body>
+</html>
+```
+
 ## API
 
 ### decode(inistring)
